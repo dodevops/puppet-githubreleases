@@ -24,11 +24,12 @@ task :validate do
   end
 end
 
-desc 'Run metadata_lint, lint, validate, and spec tests.'
+desc 'Run metadata_lint, lint, validate, spec and Rake tests.'
 task :test do
   [:metadata_lint, :lint, :validate, :spec].each do |test|
     Rake::Task[test].invoke
   end
+  Rake::Task['kitchen:all'].invoke
 end
 
 begin

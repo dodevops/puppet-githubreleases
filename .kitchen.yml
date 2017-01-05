@@ -1,0 +1,17 @@
+---
+driver:
+  name: docker
+  test_base_path: test
+  use_sudo: false # because of https://github.com/test-kitchen/kitchen-docker/issues/207
+
+provisioner:
+  name: puppet_apply
+  manifest: site.pp
+  puppet_debug: true
+
+platforms:
+  - name: ubuntu-14.04
+
+suites:
+  - name: default
+    run_list:

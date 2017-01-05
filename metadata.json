@@ -1,5 +1,5 @@
 {
-    "name": "dploeger/githubreleases",
+    "name": "dploeger-githubreleases",
     "version": "0.1.0",
     "author": "dploeger",
     "summary": "Download release tarballs or artifacts from github releases",

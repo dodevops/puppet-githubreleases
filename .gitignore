@@ -1,4 +1,7 @@
 .kitchen
+.librarian
+.tmp
+Puppetfile.lock
 
 # Created by .ignore support plugin (hsz.mobi)
 ### Ruby template

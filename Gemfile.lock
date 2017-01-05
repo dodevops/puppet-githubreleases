@@ -21,6 +21,8 @@ GEM
     hiera (3.2.2)
     json (2.0.2)
     json_pure (1.8.3)
+    kitchen-docker (2.6.0)
+      test-kitchen (>= 1.0.0)
     kitchen-puppet (1.46.0)
       net-ssh (~> 3)
       test-kitchen (~> 1.4)
@@ -48,12 +50,14 @@ GEM
     mixlib-versioning (1.1.0)
     mocha (1.2.1)
       metaclass (~> 0.0.1)
+    multi_json (1.12.1)
     multipart-post (2.0.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (3.2.0)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
+    net-telnet (0.1.1)
     parser (2.3.3.1)
       ast (~> 2.2)
     powerpack (0.1.1)
@@ -87,6 +91,9 @@ GEM
     rspec-expectations (3.5.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.5.0)
+    rspec-its (1.2.0)
+      rspec-core (>= 3.0.0)
+      rspec-expectations (>= 3.0.0)
     rspec-mocks (3.5.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.5.0)
@@ -104,7 +111,18 @@ GEM
     safe_yaml (1.0.4)
     semantic_puppet (0.1.4)
       gettext-setup (>= 0.3)
+    serverspec (2.37.2)
+      multi_json
+      rspec (~> 3.0)
+      rspec-its
+      specinfra (~> 2.53)
+    sfl (2.3)
     spdx-licenses (1.1.0)
+    specinfra (2.66.3)
+      net-scp
+      net-ssh (>= 2.7, < 4.0)
+      net-telnet
+      sfl
     test-kitchen (1.14.2)
       mixlib-install (>= 1.2, < 3.0)
       mixlib-shellout (>= 1.2, < 3.0)
@@ -122,6 +140,7 @@ PLATFORMS
 
 DEPENDENCIES
   facter (>= 1.7.0)
+  kitchen-docker
   kitchen-puppet
   kitchen-vagrant
   librarian-puppet
@@ -131,6 +150,7 @@ DEPENDENCIES
   puppetlabs_spec_helper (>= 1.0.0)
   rspec-puppet
   rubocop
+  serverspec
   test-kitchen
 
 BUNDLED WITH

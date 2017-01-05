@@ -7,10 +7,16 @@ define githubreleases::download (
   $asset_filepattern = undef,
   $asset_contenttype = undef,
   $asset_fallback    = undef,
+  $is_tag            = undef,
+  $use_auth          = undef,
+  $username          = undef,
+  $password          = undef,
   $target            = undef
 ) {
 
   include githubreleases
+
+  # Set local variables
 
   $_author = pick($author, $githubreleases::author)
   $_repository = pick($repository, $::githubreleases::repository)
@@ -29,45 +35,57 @@ define githubreleases::download (
     $asset_fallback,
     $githubreleases::asset_fallback
   )
+  $_is_tag = pick(
+    $is_tag,
+    $githubreleases::is_tag
+  )
+  $_use_auth = pick(
+    $use_auth,
+    $githubreleases::use_auth
+  )
+  $_username = pick_default(
+    $username,
+    $githubreleases::username
+  )
+  $_password = pick_default(
+    $password,
+    $githubreleases::password
+  )
 
   $_target = pick($target, $name)
 
-  $_url_prefix = 'https://api.github.com/repos'
+  # Get source URL
 
-  $release_info = loadjson(
-    "${_url_prefix}/${_author}/${_repository}/releases/${_release}",
-    { }
-  )
+  debug("Loading ${_repository}@${_release} by ${_author}")
 
-  if ($_asset) {
-    if (size($release_info['assets']) == 0) {
-      fail('Asset not found')
-    } else {
-      githubreleases::scan {
-        $release_info['assets']:
-          filepattern => $_asset_filepattern,
-          contenttype => $_asset_contenttype,
-          target      => $_target
-      }
-    }
+  if ($_use_zip) {
+    debug('Using ZIP')
   }
 
-  if (!$_asset) or ($_asset_fallback) {
-    if ($_use_zip) {
-      remote_file {
-        "fetch.${_target}":
-          ensure => 'present',
-          path   => $_target,
-          source => $release_info['zipball_url']
-      }
-    } else {
-      remote_file {
-        "fetch.${_target}":
-          ensure => 'present',
-          path   => $_target,
-          source => $release_info['tarball_url']
-      }
-    }
+  if ($_use_auth) {
+    debug("Authenticating as ${_username}")
+  }
+
+  $source_url = github_release({
+    author            => $_author,
+    repository        => $_repository,
+    release           => $_release,
+    asset             => $_asset,
+    use_zip           => $_use_zip,
+    asset_filepattern => $_asset_filepattern,
+    asset_contenttype => $_asset_contenttype,
+    asset_fallback    => $_asset_fallback,
+    is_tag            => $_is_tag,
+    use_auth          => $_use_auth,
+    username          => $_username,
+    password          => $_password
+  })
+
+  remote_file {
+    "fetch.${_target}":
+      ensure => 'present',
+      path   => $_target,
+      source => $source_url
   }
 
 }

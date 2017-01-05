@@ -1,83 +1,108 @@
-# githubreleases
+# dploeger/githubreleases
 
 #### Table of Contents
 
 1. [Description](#description)
-1. [Setup - The basics of getting started with githubreleases](#setup)
-    * [What githubreleases affects](#what-githubreleases-affects)
-    * [Setup requirements](#setup-requirements)
-    * [Beginning with githubreleases](#beginning-with-githubreleases)
 1. [Usage - Configuration options and additional functionality](#usage)
 1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
-1. [Limitations - OS compatibility, etc.](#limitations)
-1. [Development - Guide for contributing to the module](#development)
+    1. [Class githubreleases](#class-githubreleases)
+    1. [Type githubreleases::download](#type-githubreleasesdownload)
 
 ## Description
 
-Start with a one- or two-sentence summary of what the module does and/or what
-problem it solves. This is your 30-second elevator pitch for your module.
-Consider including OS/Puppet version it works with.
+This puppet module downloads tar-, zipballs or assets from Github releases.
 
-You can give more descriptive information in a second paragraph. This paragraph
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?" If your module has a range of functionality (installation, configuration,
-management, etc.), this is the time to mention it.
-
-## Setup
-
-### What githubreleases affects **OPTIONAL**
-
-If it's obvious what your module touches, you can skip this section. For
-example, folks can probably figure out that your mysql_instance module affects
-their MySQL instances.
-
-If there's more that they should know about, though, this is the place to mention:
-
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
-
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
-
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you might want to include an additional "Upgrading" section
-here.
-
-### Beginning with githubreleases
-
-The very basic steps needed for a user to get the module up and running. This
-can include setup steps, if necessary, or it can be an example of the most
-basic use of the module.
+Assets can be filtered by Content type and/or file name.
 
 ## Usage
 
-This section is where you describe how to customize, configure, and do the
-fancy stuff with your module here. It's especially helpful if you include usage
-examples and code samples for doing things with your module.
+To download a release from Github, use the defined type githubreleases::download like this:
+
+```puppet
+githubreleases::download {
+  '/tmp/release.latest.head.tar.gz':
+    author     => 'company',
+    repository => 'example'
+}
+```
+
+This will download the latest (HEAD) version of the project "company/example" as a tarball
+ an place it in /tmp/release.latest.head.tar.gz.
+
+If the repository uses the Github release feature, the tarball of the
+latest (non-pre-release) release will be downloaded.
+
+If the repository uses assets to offer binary files with each release,
+these can also be downloaded:
+
+```puppet
+githubreleases::download {
+  '/tmp/release.0.0.2.asset.debian':
+    author            => 'company',
+    repository        => 'example',
+    release           => '0.0.2',
+    asset             => true,
+    asset_contenttype => 'application\/x-deb'
+}
+```
+
+This will download a debian package of release 0.0.2 of the repository.
+
+File names can be filtered as well:
+
+```puppet
+githubreleases::download {
+  '/tmp/release.0.0.2.asset.exe':
+    author            => 'company',
+    repository        => 'example',
+    release           => '0.0.2',
+    asset             => true,
+    asset_filepattern => 'example.*\.exe'
+}
+```
+
+This will download the first file matching the given filepattern.
+
+All patterns are Regular Expressions.
+
+This module also supports hiera. Just include the githubreleases-class and
+use the type like this:
+
+```yaml
+githubreleases::download:
+  '/tmp/release.latest.head.fromhiera.tar.gz':
+    author: 'company'
+    repository: 'example'
+```
+
+## Using authentication
+
+Github [rate-limits](https://developer.github.com/v3/#rate-limiting) access
+to its API. If you use this module in a test and massively download files
+using it, you better create a Github user and set the authentication parameters
+so that you will get a better rate.
 
 ## Reference
 
-Here, include a complete list of your module's classes, types, providers,
-facts, along with the parameters for each. Users refer to this section (thus
-the name "Reference") to find specific details; most users don't read it per
-se.
+### class githubreleases
 
-## Limitations
+This will set basic parameters for all further githubreleases::download usages.
 
-This is where you list OS compatibility, version compatibility, etc. If there
-are Known Issues, you might want to include them under their own heading here.
+* author: The github author (e.g. company)
+* repository: The github repository by the author (e.g. example)
+* release: The desired release [defaults to **latest**]
+* asset: Use asset filtering [defaults to **false**]
+* use_zip: Download zipballs instead of tarballs [defaults to **false**]
+* asset_filepattern: A string in regular expression format filtering the file name of the asset [defaults to **.\***]
+* asset_contenttype: A string in regular expression format filtering the contenttype of the asset [defaults to **.\***]
+* is_tag: The given release is not a name of a release but rather the corresponding tag [defaults to **false**]
+* use_auth: Use authentication when talking to the Github API [defaults to **false**]
+* username: A github username to use when talking to the github API
+* password: A github password (personal auth tokens work, too) to use when talking to the github API
 
-## Development
+### type githubreleases::download
 
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
+This type will actually download the desired file from github. The parameters are the same
+like in the [githubreleases class](#class-githubreleases), plus
 
-## Release Notes/Contributors/Etc. **Optional**
-
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You can also add any additional sections you feel
-are necessary or important to include here. Please use the `## ` header.
+* target: The target file where to put the download [defaults to **the type name**]

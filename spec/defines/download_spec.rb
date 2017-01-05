@@ -3,11 +3,25 @@ require 'spec_helper'
 describe 'githubreleases::download' do
 
   let(:title) { 'test' }
+
+  use_auth = false
+  username = ''
+  password = ''
+
+  if ENV['GITHUB_USE_AUTH']
+    use_auth = true
+    username = ENV['GITHUB_USERNAME']
+    password = ENV['GITHUB_PASSWORD']
+  end
+
   let(:params) {
     {
         :author => 'puppetlabs',
         :repository => 'puppet',
-        :target => '/tmp/test'
+        :target => '/tmp/test',
+        :use_auth => use_auth,
+        :username => username,
+        :password => password
     }
   }
 

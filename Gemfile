@@ -20,4 +20,6 @@ end
 gem 'test-kitchen'
 gem 'kitchen-puppet'
 gem 'kitchen-vagrant'
+gem 'kitchen-docker'
 gem 'librarian-puppet'
+gem 'serverspec'
