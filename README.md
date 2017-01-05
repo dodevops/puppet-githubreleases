@@ -1,5 +1,7 @@
 # dploeger/githubreleases
 
+[![Build status](https://img.shields.io/travis/dploeger/puppet-githubreleases.svg)](https://travis-ci.org/dploeger/puppet-githubreleases)
+
 #### Table of Contents
 
 1. [Description](#description)
