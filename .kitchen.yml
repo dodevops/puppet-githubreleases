@@ -11,6 +11,10 @@ provisioner:
 
 platforms:
   - name: ubuntu-14.04
+  - name: ubuntu-16.04
+    provisioner:
+      name: puppet_apply
+      puppet_apt_repo: "http://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb"
 
 suites:
   - name: default

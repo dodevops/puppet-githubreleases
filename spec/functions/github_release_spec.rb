@@ -76,7 +76,7 @@ describe 'github_release' do
             :repository => 'collector-sidecar'
         }
     ).and_return(
-         /https:\/\/api.github.com\/repos\/Graylog2\/collector-sidecar\/tarball\//
+         /https:\/\/.*.github.com\/Graylog2\/collector-sidecar\/.*\.tar\.gz\//
     )
   end
 
@@ -92,7 +92,7 @@ describe 'github_release' do
             :password => password
         }
     ).and_return(
-        'https://api.github.com/repos/Graylog2/collector-sidecar/tarball/0.0.2'
+        /https:\/\/.*.github.com\/Graylog2\/collector-sidecar\/legacy.tar.gz/
     )
   end
 
@@ -109,7 +109,7 @@ describe 'github_release' do
             :password => password
         }
     ).and_return(
-        'https://api.github.com/repos/Graylog2/collector-sidecar/zipball/0.0.2'
+      /https:\/\/.*.github.com\/Graylog2\/collector-sidecar\/legacy.zip/
     )
   end
 

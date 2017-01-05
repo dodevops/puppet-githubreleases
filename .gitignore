@@ -2,6 +2,8 @@
 .librarian
 .tmp
 Puppetfile.lock
+spec/fixtures/modules
+spec/fixtures/module-working-dir
 
 # Created by .ignore support plugin (hsz.mobi)
 ### Ruby template

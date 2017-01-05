@@ -1,0 +1,6 @@
+:backends:
+    - yaml
+:yaml:
+    :datadir: "/tmp/kitchen/hiera"
+:hierarchy:
+    - "common"
