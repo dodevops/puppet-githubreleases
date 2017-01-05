@@ -7,3 +7,4 @@ language: ruby
 rvm:
       - 2.2
 
+script: rake integration_test
