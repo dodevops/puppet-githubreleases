@@ -1,6 +1,6 @@
-# dploeger/githubreleases
+# dodevops/githubreleases
 
-[![Build status](https://img.shields.io/travis/dploeger/puppet-githubreleases.svg)](https://travis-ci.org/dploeger/puppet-githubreleases)
+[![Build status](https://img.shields.io/travis/dodevops/puppet-githubreleases.svg)](https://travis-ci.org/dodevops/puppet-githubreleases)
 
 #### Table of Contents
 

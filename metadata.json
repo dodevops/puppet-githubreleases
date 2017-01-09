@@ -1,12 +1,12 @@
 {
-    "name": "dploeger-githubreleases",
+    "name": "dodevops-githubreleases",
     "version": "0.1.0",
-    "author": "dploeger",
+    "author": "Dennis Ploeger <develop@dieploegers.de>",
     "summary": "Download release tarballs or artifacts from github releases",
     "license": "MIT",
-    "source": "https://github.com/dploeger/puppet-githubreleases",
-    "project_page": "https://github.com/dploeger/puppet-githubreleases",
-    "issues_url": "https://github.com/dploeger/puppet-githubreleases/issues",
+    "source": "https://github.com/dodevops/puppet-githubreleases",
+    "project_page": "https://github.com/dodevops/puppet-githubreleases",
+    "issues_url": "https://github.com/dodevops/puppet-githubreleases/issues",
     "dependencies": [
         {
             "name": "puppetlabs-stdlib",
