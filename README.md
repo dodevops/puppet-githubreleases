@@ -94,6 +94,7 @@ This will set basic parameters for all further githubreleases::download usages.
 * repository: The github repository by the author (e.g. example)
 * release: The desired release [defaults to **latest**]
 * asset: Use asset filtering [defaults to **false**]
+* asset_fallback: If the asset could not be found, use the tar/zipball-link instead. [defaults to **false**]
 * use_zip: Download zipballs instead of tarballs [defaults to **false**]
 * asset_filepattern: A string in regular expression format filtering the file name of the asset [defaults to **.\***]
 * asset_contenttype: A string in regular expression format filtering the contenttype of the asset [defaults to **.\***]
