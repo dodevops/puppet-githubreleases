@@ -1,5 +1,5 @@
 {
-    "name": "dodevops-githubreleases",
+    "name": "githubreleases",
     "version": "0.1.0",
     "author": "Dennis Ploeger <develop@dieploegers.de>",
     "summary": "Download release tarballs or artifacts from github releases",
