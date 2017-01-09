@@ -15,9 +15,10 @@ GEM
     gettext (3.2.2)
       locale (>= 2.0.5)
       text (>= 1.3.0)
-    gettext-setup (0.10)
+    gettext-setup (0.11)
       fast_gettext (~> 1.1.0)
       gettext (>= 3.0.2)
+      locale
     hiera (3.2.2)
     json (2.0.2)
     json_pure (1.8.3)
