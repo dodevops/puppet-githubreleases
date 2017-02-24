@@ -1,7 +1,7 @@
 {
-    "name": "githubreleases",
+    "name": "dodevops-githubreleases",
     "version": "0.1.0",
-    "author": "Dennis Ploeger <develop@dieploegers.de>",
+    "author": "Dennis Ploeger <dennis.ploeger@kps.com>",
     "summary": "Download release tarballs or artifacts from github releases",
     "license": "MIT",
     "source": "https://github.com/dodevops/puppet-githubreleases",
