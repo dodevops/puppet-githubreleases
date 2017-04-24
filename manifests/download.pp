@@ -54,45 +54,38 @@ define githubreleases::download (
 
   $_target = pick($target, $name)
 
-  # Exit, if target file already exists
+  # Get source URL
 
-  if (file_exists($_target)) {
-    debug("Target ${_target} already exists. Skipping")
-  } else {
+  debug("Loading ${_repository}@${_release} by ${_author}")
 
-    # Get source URL
+  if ($_use_zip) {
+    debug('Using ZIP')
+  }
 
-    debug("Loading ${_repository}@${_release} by ${_author}")
+  if ($_use_auth) {
+    debug("Authenticating as ${_username}")
+  }
 
-    if ($_use_zip) {
-      debug('Using ZIP')
-    }
+  $source_url = github_release({
+    author            => $_author,
+    repository        => $_repository,
+    release           => $_release,
+    asset             => $_asset,
+    use_zip           => $_use_zip,
+    asset_filepattern => $_asset_filepattern,
+    asset_contenttype => $_asset_contenttype,
+    asset_fallback    => $_asset_fallback,
+    is_tag            => $_is_tag,
+    use_auth          => $_use_auth,
+    username          => $_username,
+    password          => $_password
+  })
 
-    if ($_use_auth) {
-      debug("Authenticating as ${_username}")
-    }
-
-    $source_url = github_release({
-      author            => $_author,
-      repository        => $_repository,
-      release           => $_release,
-      asset             => $_asset,
-      use_zip           => $_use_zip,
-      asset_filepattern => $_asset_filepattern,
-      asset_contenttype => $_asset_contenttype,
-      asset_fallback    => $_asset_fallback,
-      is_tag            => $_is_tag,
-      use_auth          => $_use_auth,
-      username          => $_username,
-      password          => $_password
-    })
-
-    remote_file {
-      "fetch.${_target}":
-        ensure => 'present',
-        path   => $_target,
-        source => $source_url
-    }
+  remote_file {
+    "fetch.${_target}":
+      ensure => 'present',
+      path   => $_target,
+      source => $source_url
   }
 
 }
