@@ -1,6 +1,6 @@
 {
     "name": "dodevops-githubreleases",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "author": "Dennis Ploeger <dennis.ploeger@kps.com>",
     "summary": "Download release tarballs or artifacts from github releases",
     "license": "MIT",
@@ -18,10 +18,10 @@
         }
     ],
     "requirements": [
-        {
-            "name": "puppet",
-            "version_requirement": "< 6.0.0"
-        }
+      {
+        "name": "puppet",
+        "version_requirement": ">= 4.0.0"
+      }
     ],
     "data_provider": null
 }
