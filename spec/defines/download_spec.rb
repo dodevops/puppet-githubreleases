@@ -16,8 +16,8 @@ describe 'githubreleases::download' do
 
   let(:params) {
     {
-        :author => 'puppetlabs',
-        :repository => 'puppet',
+        :author => 'dodevops',
+        :repository => 'puppet-githubreleases',
         :target => '/tmp/test',
         :use_auth => use_auth,
         :username => username,

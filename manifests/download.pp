@@ -14,7 +14,7 @@ define githubreleases::download (
   $target            = undef
 ) {
 
-  include githubreleases
+  include ::githubreleases
 
   # Set local variables
 
@@ -78,14 +78,14 @@ define githubreleases::download (
     is_tag            => $_is_tag,
     use_auth          => $_use_auth,
     username          => $_username,
-    password          => $_password
+    password          => $_password,
   })
 
   remote_file {
     "fetch.${_target}":
       ensure => 'present',
       path   => $_target,
-      source => $source_url
+      source => $source_url,
   }
 
 }

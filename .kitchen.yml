@@ -10,7 +10,6 @@ provisioner:
   puppet_debug: true
 
 platforms:
-  - name: ubuntu-14.04
   - name: ubuntu-16.04
     provisioner:
       name: puppet_apply
