@@ -73,7 +73,10 @@ describe 'github_release' do
     is_expected.to run.with_params(
         {
             :author => 'Graylog2',
-            :repository => 'collector-sidecar'
+            :repository => 'collector-sidecar',
+            :use_auth => use_auth,
+            :username => username,
+            :password => password
         }
     ).and_return(
          /https:\/\/.*.github.com\/Graylog2\/collector-sidecar\/.*\.tar\.gz\//
