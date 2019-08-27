@@ -1,6 +1,6 @@
 {
     "name": "dodevops-githubreleases",
-    "version": "2.0.0",
+    "version": "3.0.0",
     "author": "Dennis Ploeger <dennis.ploeger@kps.com>",
     "summary": "Download release tarballs or artifacts from github releases",
     "license": "MIT",
@@ -8,10 +8,6 @@
     "project_page": "https://github.com/dodevops/puppet-githubreleases",
     "issues_url": "https://github.com/dodevops/puppet-githubreleases/issues",
     "dependencies": [
-        {
-            "name": "puppetlabs-stdlib",
-            "version_requirement": ">= 1.0.0"
-        },
         {
             "name": "lwf-remote_file",
             "version_requiremant": ">1.1.3"
