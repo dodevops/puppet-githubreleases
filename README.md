@@ -77,35 +77,11 @@ githubreleases::download:
     repository: 'example'
 ```
 
+Defaults for multiple resources can be set by configuring the githubreleases-class.
+
 ## Using authentication
 
 Github [rate-limits](https://developer.github.com/v3/#rate-limiting) access
 to its API. If you use this module in a test and massively download files
 using it, you better create a Github user and set the authentication parameters
 so that you will get a better rate.
-
-## Reference
-
-### class githubreleases
-
-This will set basic parameters for all further githubreleases::download usages.
-
-* author: The github author (e.g. company)
-* repository: The github repository by the author (e.g. example)
-* release: The desired release [defaults to **latest**]
-* asset: Use asset filtering [defaults to **false**]
-* asset_fallback: If the asset could not be found, use the tar/zipball-link instead. [defaults to **false**]
-* use_zip: Download zipballs instead of tarballs [defaults to **false**]
-* asset_filepattern: A string in regular expression format filtering the file name of the asset [defaults to **.\***]
-* asset_contenttype: A string in regular expression format filtering the contenttype of the asset [defaults to **.\***]
-* is_tag: The given release is not a name of a release but rather the corresponding tag [defaults to **false**]
-* use_auth: Use authentication when talking to the Github API [defaults to **false**]
-* username: A github username to use when talking to the github API
-* password: A github password (personal auth tokens work, too) to use when talking to the github API
-
-### type githubreleases::download
-
-This type will actually download the desired file from github. The parameters are the same
-like in the [githubreleases class](#class-githubreleases), plus
-
-* target: The target file where to put the download [defaults to **the type name**]
