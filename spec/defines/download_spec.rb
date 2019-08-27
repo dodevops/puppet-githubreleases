@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'githubreleases::download' do
@@ -14,17 +16,38 @@ describe 'githubreleases::download' do
     password = ENV['GITHUB_PASSWORD']
   end
 
-  let(:params) {
+  let(:params) do
     {
-        :author => 'dodevops',
-        :repository => 'puppet-githubreleases',
-        :target => '/tmp/test',
-        :use_auth => use_auth,
-        :username => username,
-        :password => password
+      author: 'dodevops',
+      repository: 'puppet-githubreleases',
+      target: '/tmp/test',
+      use_auth: use_auth,
+      username: username,
+      password: password
     }
-  }
+  end
 
   it { is_expected.to contain_remote_file('fetch./tmp/test') }
+
+  context 'with specific release' do
+    let(:params) do
+      {
+        author: 'Graylog2',
+        repository: 'collector-sidecar',
+        release: '0.0.2',
+        is_tag: true,
+        target: '/tmp/test',
+        use_auth: use_auth,
+        username: username,
+        password: password
+      }
+    end
+
+    it {
+      is_expected.to contain_remote_file('fetch./tmp/test').with_source(
+        'https://api.github.com/repos/Graylog2/collector-sidecar/tarball/0.0.2'
+      )
+    }
+  end
 
 end
