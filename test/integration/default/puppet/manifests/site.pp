@@ -4,7 +4,7 @@ $_use_auth = $facts['github_use_auth'] ? {
   # lint:ignore:quoted_booleans
   'true'  => true,
   # lint:endignore
-  default => undef,
+  default => false,
 }
 
 ::githubreleases::download {

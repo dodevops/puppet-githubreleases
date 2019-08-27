@@ -12,18 +12,18 @@
 # @param username GitHub username to use
 # @param password GitHub password to use
 class githubreleases (
-  String $release              = 'latest',
-  String $asset_filepattern    = '.*',
-  String $asset_contenttype    = '.*',
-  Boolean $asset               = false,
-  Boolean $asset_fallback      = false,
-  Boolean $use_zip             = false,
-  Boolean $is_tag              = false,
-  Boolean $use_auth            = false,
-  Optional[String] $author     = undef,
-  Optional[String] $repository = undef,
-  Optional[String] $username   = '',
-  Optional[String] $password   = ''
+  String $release                    = 'latest',
+  String $asset_filepattern          = '.*',
+  String $asset_contenttype          = '.*',
+  Boolean $asset                     = false,
+  Boolean $asset_fallback            = false,
+  Boolean $use_zip                   = false,
+  Boolean $is_tag                    = false,
+  Variant[Boolean, String] $use_auth = false,
+  Optional[String] $author           = undef,
+  Optional[String] $repository       = undef,
+  Optional[String] $username         = '',
+  Optional[String] $password         = ''
 )
   {
 

@@ -5,6 +5,6 @@ githubreleases::download:
   '/tmp/release.latest.head.fromhiera.tar.gz':
     author: 'Graylog2'
     repository: 'collector-sidecar'
-    use_auth: '%{facts.github_use_auth}'
+    use_auth: "%{facts.github_use_auth}"
     username: '%{facts.github_username}'
     password: '%{facts.github_password}'
