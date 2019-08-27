@@ -1,31 +1,33 @@
 # @summary Downloads release artifacts from Github
 # @param release see githubreleases::release
-# @param asset_filepattern see githubreleases:asset_filepattern
-# @param asset_contenttype see githubreleases:asset_contenttype
-# @param asset see githubreleases:asset
-# @param asset_fallback see githubreleases:asset_fallback
-# @param use_zip see githubreleases:use_zip
-# @param is_tag see githubreleases:is_tag
-# @param use_auth see githubreleases:use_auth
+# @param asset_filepattern see githubreleases::asset_filepattern
+# @param asset_contenttype see githubreleases::asset_contenttype
+# @param asset see githubreleases::asset
+# @param asset_fallback see githubreleases::asset_fallback
+# @param use_zip see githubreleases::use_zip
+# @param is_tag see githubreleases::is_tag
+# @param use_auth see githubreleases::use_auth
+# @param use_oauth see githubreleases::use_oauth
 # @param target Target path to use (defaults to name of the ressource)
-# @param author see githubreleases:author
-# @param repository see githubreleases:repository
-# @param username see githubreleases:username
-# @param password see githubreleases:password
+# @param author see githubreleases::author
+# @param repository see githubreleases::repository
+# @param username see githubreleases::username
+# @param password see githubreleases::password
 define githubreleases::download (
-  String $release                    = 'latest',
-  String $asset_filepattern          = '.*',
-  String $asset_contenttype          = '.*',
-  Boolean $asset                     = false,
-  Boolean $asset_fallback            = false,
-  Boolean $use_zip                   = false,
-  Boolean $is_tag                    = false,
-  Variant[Boolean, String] $use_auth = false,
-  Optional[String] $target           = undef,
-  Optional[String] $author           = undef,
-  Optional[String] $repository       = undef,
-  Optional[String] $username         = '',
-  Optional[String] $password         = ''
+  String $release                     = 'latest',
+  String $asset_filepattern           = '.*',
+  String $asset_contenttype           = '.*',
+  Boolean $asset                      = false,
+  Boolean $asset_fallback             = false,
+  Boolean $use_zip                    = false,
+  Boolean $is_tag                     = false,
+  Variant[Boolean, String] $use_auth  = false,
+  Variant[Boolean, String] $use_oauth = false,
+  Optional[String] $target            = undef,
+  Optional[String] $author            = undef,
+  Optional[String] $repository        = undef,
+  Optional[String] $username          = '',
+  Optional[String] $password          = ''
 ) {
 
   include ::githubreleases
@@ -82,6 +84,11 @@ define githubreleases::download (
     default => $use_auth
   }
 
+  $_use_oauth = $use_oauth ? {
+    undef   => $githubreleases::use_oauth,
+    default => $use_oauth
+  }
+
   $_username = $username ? {
     undef   => $githubreleases::username,
     default => $username
@@ -121,6 +128,7 @@ define githubreleases::download (
       asset_fallback    => $_asset_fallback,
       is_tag            => $_is_tag,
       use_auth          => $_use_auth,
+      use_oauth         => $_use_oauth,
       username          => $_username,
       password          => $_password,
     })

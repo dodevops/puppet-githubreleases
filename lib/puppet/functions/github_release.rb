@@ -17,6 +17,8 @@ Puppet::Functions.create_function(:github_release) do
   #                                           If this is false, an error is raised instead.
   # @option options [String] :is_tag The release specified is the name of a tag, not a release
   # @option options [String] :use_auth Use authenticated requests, for example to use a bigger rate limit
+  # @option options [String] :use_oauth Use OAuth when using authenticated requests
+  #                                     (then username/password is used for client id/secret)
   # @option options [String] :username GitHub Username
   # @option options [String] :password GitHub password or Authentication token
   # @return [String] The download URL for the requested assset
@@ -37,6 +39,7 @@ Puppet::Functions.create_function(:github_release) do
     options = {
       release: 'latest',
       use_auth: false,
+      use_oauth: false,
       username: '',
       password: '',
       asset: false,

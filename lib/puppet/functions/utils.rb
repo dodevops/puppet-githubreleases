@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
-def fetch_from_url(url, username, password, use_auth = false, ignore_redirect = false, limit = 10)
+def fetch_from_url(url, username, password, use_auth = false, use_oauth = false, ignore_redirect = false, limit = 10)
   # rubocop: enable Metrics/AbcSize, Metrics/MethodLength
   if limit.zero?
     raise(
@@ -12,9 +12,18 @@ def fetch_from_url(url, username, password, use_auth = false, ignore_redirect = 
 
   uri = URI(url)
 
+  if use_auth && use_oauth
+    uri.query = Kernel.format(
+      '%<query>s&client_id=%<username>s&client_secret=%<password>s',
+      query: uri.query,
+      username: username,
+      password: password
+    )
+  end
+
   request = Net::HTTP::Get.new(uri.path)
 
-  if use_auth
+  if use_auth && !use_oauth
     Puppet.debug(Kernel.format('Authenticating as %<username>s', username: username))
     request.basic_auth(
       username,
@@ -33,7 +42,7 @@ def fetch_from_url(url, username, password, use_auth = false, ignore_redirect = 
       if ignore_redirect
         response['location']
       else
-        fetch_from_url(response.location, username, password, use_auth, ignore_redirect, limit - 1)
+        fetch_from_url(response.location, username, password, use_auth, use_oauth, ignore_redirect, limit - 1)
       end
     when Net::HTTPSuccess
       Puppet.debug('Success. Returning body.')
@@ -69,7 +78,8 @@ def get_release_info(author, repository, options)
     url,
     options[:username],
     options[:password],
-    options[:use_auth]
+    options[:use_auth],
+    options[:use_oauth]
   )
 
   return nil unless release_info_json

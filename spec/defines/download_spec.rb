@@ -7,6 +7,7 @@ describe 'githubreleases::download' do
   let(:title) { 'test' }
 
   use_auth = false
+  use_oauth = false
   username = ''
   password = ''
 
@@ -16,12 +17,15 @@ describe 'githubreleases::download' do
     password = ENV['GITHUB_PASSWORD']
   end
 
+  use_oauth = true if ENV['GITHUB_USE_OAUTH']
+
   let(:params) do
     {
       author: 'dodevops',
       repository: 'puppet-githubreleases',
       target: '/tmp/test',
       use_auth: use_auth,
+      use_oauth: use_oauth,
       username: username,
       password: password
     }
@@ -38,6 +42,7 @@ describe 'githubreleases::download' do
         is_tag: true,
         target: '/tmp/test',
         use_auth: use_auth,
+        use_oauth: use_oauth,
         username: username,
         password: password
       }

@@ -4,6 +4,7 @@ require 'spec_helper'
 
 describe 'github_release' do # rubocop: disable Metrics/BlockLength
   use_auth = false
+  use_oauth = false
   username = ''
   password = ''
 
@@ -13,11 +14,14 @@ describe 'github_release' do # rubocop: disable Metrics/BlockLength
     password = ENV['GITHUB_PASSWORD']
   end
 
+  use_oauth = true if ENV['GITHUB_USE_OAUTH']
+
   it 'should give the HEAD tarball URL' do
     is_expected.to run.with_params(
       'puppetlabs',
       'puppet',
       :use_auth => use_auth,
+      :use_oauth => use_oauth,
       :username => username,
       :password => password
     ).and_return(
@@ -31,6 +35,7 @@ describe 'github_release' do # rubocop: disable Metrics/BlockLength
       'puppet',
       :use_zip => true,
       :use_auth => use_auth,
+      :use_oauth => use_oauth,
       :username => username,
       :password => password
     ).and_return(
@@ -43,6 +48,7 @@ describe 'github_release' do # rubocop: disable Metrics/BlockLength
       'Graylog2',
       'collector-sidecar',
       :use_auth => use_auth,
+      :use_oauth => use_oauth,
       :username => username,
       :password => password
     ).and_return(
@@ -57,6 +63,7 @@ describe 'github_release' do # rubocop: disable Metrics/BlockLength
       :release => '0.0.2',
       :is_tag => true,
       :use_auth => use_auth,
+      :use_oauth => use_oauth,
       :username => username,
       :password => password
     ).and_return(
@@ -72,6 +79,7 @@ describe 'github_release' do # rubocop: disable Metrics/BlockLength
       :use_zip => true,
       :is_tag => true,
       :use_auth => use_auth,
+      :use_oauth => use_oauth,
       :username => username,
       :password => password
     ).and_return(
@@ -88,6 +96,7 @@ describe 'github_release' do # rubocop: disable Metrics/BlockLength
       :asset => true,
       :asset_contenttype => 'application/x-deb',
       :use_auth => use_auth,
+      :use_oauth => use_oauth,
       :username => username,
       :password => password
     ).and_return(
@@ -104,6 +113,7 @@ describe 'github_release' do # rubocop: disable Metrics/BlockLength
       :asset => true,
       :asset_filepattern => 'graylog_collector_sidecar_installer\.exe',
       :use_auth => use_auth,
+      :use_oauth => use_oauth,
       :username => username,
       :password => password
     ).and_return(
