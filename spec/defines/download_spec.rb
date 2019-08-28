@@ -3,9 +3,6 @@
 require 'spec_helper'
 
 describe 'githubreleases::download' do
-
-  let(:title) { 'test' }
-
   use_auth = false
   use_oauth = false
   username = ''
@@ -19,6 +16,8 @@ describe 'githubreleases::download' do
 
   use_oauth = true if ENV['GITHUB_USE_OAUTH']
 
+  let(:title) { 'test' }
+
   let(:params) do
     {
       author: 'dodevops',
@@ -27,7 +26,7 @@ describe 'githubreleases::download' do
       use_auth: use_auth,
       use_oauth: use_oauth,
       username: username,
-      password: password
+      password: password,
     }
   end
 
@@ -44,15 +43,14 @@ describe 'githubreleases::download' do
         use_auth: use_auth,
         use_oauth: use_oauth,
         username: username,
-        password: password
+        password: password,
       }
     end
 
     it {
       is_expected.to contain_remote_file('fetch./tmp/test').with_source(
-        'https://api.github.com/repos/Graylog2/collector-sidecar/tarball/0.0.2'
+        'https://api.github.com/repos/Graylog2/collector-sidecar/tarball/0.0.2',
       )
     }
   end
-
 end

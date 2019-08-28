@@ -47,32 +47,32 @@ Puppet::Functions.create_function(:github_release) do
       asset_filepattern: '.*',
       asset_contenttype: '.*',
       asset_fallback: true,
-      is_tag: false
+      is_tag: false,
     }.merge(options.each_with_object({}) { |(k, v), h| h[k.to_sym] = v })
 
     Puppet.debug(
       Kernel.format(
-        'Got options: %<author>s %<repo>s %<option>s',
+        'Got options: %{author} %{repo} %{option}',
         author: author,
         repo: repository,
-        option: options.to_s
-      )
+        option: options.to_s,
+      ),
     )
 
     download_url = get_download_url(
       author,
       repository,
-      options
+      options,
     )
 
     if download_url == ''
       raise(
         Puppet::ParseError,
-        'Can not find a valid download URL for the release.'
+        'Can not find a valid download URL for the release.',
       )
     end
 
-    Puppet.debug(Kernel.format('Download URL is %<url>s', url: download_url))
+    Puppet.debug(Kernel.format('Download URL is %{url}', url: download_url))
 
     download_url
   end

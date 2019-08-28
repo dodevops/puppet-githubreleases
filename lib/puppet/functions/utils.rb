@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
-# rubocop: disable Metrics/AbcSize, Metrics/MethodLength
 def fetch_from_url(url, username, password, use_auth = false, use_oauth = false, ignore_redirect = false, limit = 10)
-  # rubocop: enable Metrics/AbcSize, Metrics/MethodLength
   if limit.zero?
     raise(
       ArgumentError,
-      'Too many HTTP redirects downloading release info'
+      'Too many HTTP redirects downloading release info',
     )
   end
 
@@ -14,24 +12,24 @@ def fetch_from_url(url, username, password, use_auth = false, use_oauth = false,
 
   if use_auth && use_oauth
     uri.query = Kernel.format(
-      '%<query>s&client_id=%<username>s&client_secret=%<password>s',
+      '%{query}&client_id=%{username}&client_secret=%{password}',
       query: uri.query,
       username: username,
-      password: password
+      password: password,
     )
   end
 
   request = Net::HTTP::Get.new(uri.path)
 
   if use_auth && !use_oauth
-    Puppet.debug(Kernel.format('Authenticating as %<username>s', username: username))
+    Puppet.debug(Kernel.format('Authenticating as %{username}', username: username))
     request.basic_auth(
       username,
-      password
+      password,
     )
   end
 
-  Puppet.debug(Kernel.format('Fetching %<url>s. Limit: %<limit>d', url: url, limit: limit))
+  Puppet.debug(Kernel.format('Fetching %{url}. Limit: %{limit}', url: url, limit: limit))
 
   Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
     response = http.request(request)
@@ -54,8 +52,9 @@ def fetch_from_url(url, username, password, use_auth = false, use_oauth = false,
       raise(
         ArgumentError,
         Kernel.format(
-          'Can not download release info: %<body>s', body: response.body
-        )
+          'Can not download release info: %{body}',
+          body: response.body,
+        ),
       )
     end
   end
@@ -67,11 +66,11 @@ end
 # @param [Hash] options Additional options
 def get_release_info(author, repository, options)
   url = Kernel.format(
-    'https://api.github.com/repos/%<author>s/%<repository>s/releases/%<tag>s%<release>s',
+    'https://api.github.com/repos/%{author}/%{repository}/releases/%{tag}%{release}',
     author: author,
     repository: repository,
-    tag: options[:is_tag] ? 'tags/' : '',
-    release: options[:release]
+    tag: (options[:is_tag]) ? 'tags/' : '',
+    release: options[:release],
   )
 
   release_info_json = fetch_from_url(
@@ -79,7 +78,7 @@ def get_release_info(author, repository, options)
     options[:username],
     options[:password],
     options[:use_auth],
-    options[:use_oauth]
+    options[:use_oauth],
   )
 
   return nil unless release_info_json
@@ -100,38 +99,38 @@ end
 def get_asset(release_info, filepattern, contenttype)
   filepattern_regexp = Regexp.new(
     filepattern,
-    Regexp::IGNORECASE
+    Regexp::IGNORECASE,
   )
 
   contenttype_regexp = Regexp.new(
     contenttype,
-    Regexp::IGNORECASE
+    Regexp::IGNORECASE,
   )
   Puppet.debug('Checking assets')
   release_info['assets'].each do |release_asset|
     Puppet.debug(
       Kernel.format(
-        'Checking asset %<name>s for RegExp %<regexp>s',
+        'Checking asset %{name} for RegExp %{regexp}',
         name: release_asset['name'],
-        regexp: filepattern_regexp.to_s
-      )
+        regexp: filepattern_regexp.to_s,
+      ),
     )
     Puppet.debug(
       Kernel.format(
-        'Checking content type %<content_type>s for RegExp %<regexp>s',
+        'Checking content type %{content_type} for RegExp %{regexp}',
         content_type: release_asset['content_type'],
-        regexp: contenttype_regexp.to_s
-      )
+        regexp: contenttype_regexp.to_s,
+      ),
     )
     next unless filepattern_regexp.match(
-      release_asset['name']
+      release_asset['name'],
     ) && contenttype_regexp.match(release_asset['content_type'])
 
     Puppet.debug(
       Kernel.format(
-        'Both are matching. Returning URL %<url>s',
-        url: release_asset['browser_download_url']
-      )
+        'Both are matching. Returning URL %{url}',
+        url: release_asset['browser_download_url'],
+      ),
     )
 
     return release_asset['browser_download_url'] if release_asset.key?('browser_download_url')
@@ -154,14 +153,14 @@ def build_asset_url(author, repository, options)
     tag = 'master'
   end
 
-  suffix = options[:use_zip] ? '.zip' : '.tar.gz'
+  suffix = (options[:use_zip]) ? '.zip' : '.tar.gz'
 
   Kernel.format(
-    'https://github.com/%<author>s/%<repository>s/archive/%<tag>s%<suffix>s',
+    'https://github.com/%{author}/%{repository}/archive/%{tag}%{suffix}',
     author: author,
     repository: repository,
     tag: tag,
-    suffix: suffix
+    suffix: suffix,
   )
 end
 
@@ -192,7 +191,7 @@ def get_download_url(author, repository, options)
     build_asset_url(
       author,
       repository,
-      options
+      options,
     )
   else
     raise ArgumentError("Can't find download url for given criteria")
