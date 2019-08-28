@@ -1,24 +1,70 @@
 {
-    "name": "dodevops-githubreleases",
-    "version": "3.0.0",
-    "author": "Dennis Ploeger <dennis.ploeger@kps.com>",
-    "summary": "Download release tarballs or artifacts from github releases",
-    "license": "MIT",
-    "source": "https://github.com/dodevops/puppet-githubreleases",
-    "project_page": "https://github.com/dodevops/puppet-githubreleases",
-    "issues_url": "https://github.com/dodevops/puppet-githubreleases/issues",
-    "dependencies": [
-        {
-            "name": "lwf-remote_file",
-            "version_requiremant": ">1.1.3"
-        }
-    ],
-    "requirements": [
-      {
-        "name": "puppet",
-        "version_requirement": ">= 5.0.0"
-      }
-    ],
-    "data_provider": null
+  "name": "dodevops-githubreleases",
+  "version": "3.0.0",
+  "author": "Dennis Ploeger <dennis.ploeger@kps.com>",
+  "summary": "Download release tarballs or artifacts from github releases",
+  "license": "MIT",
+  "source": "https://github.com/dodevops/puppet-githubreleases",
+  "project_page": "https://github.com/dodevops/puppet-githubreleases",
+  "issues_url": "https://github.com/dodevops/puppet-githubreleases/issues",
+  "dependencies": [
+    {
+      "name": "lwf-remote_file",
+      "version_requiremant": ">1.1.3"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "OracleLinux",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "8"
+      ]
+    },
+    {
+      "operatingsystem": "Scientific",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "9"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "18.04"
+      ]
+    },
+    {
+      "operatingsystem": "windows",
+      "operatingsystemrelease": [
+        "2019",
+        "10"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 5.0.0"
+    }
+  ],
+  "pdk-version": "1.12.0",
+  "template-url": "pdk-default#1.12.0",
+  "template-ref": "1.12.0-0-g55d9ae2"
 }
-

@@ -1,0 +1,37 @@
+.gitignore:
+    paths:
+        - "/test/integration/**/.librarian"
+        - "/test/integration/**/.tmp"
+        - ".kitchen"
+        - ".vscode"
+Gemfile:
+    required:
+        ":system_tests":
+            - gem: "kitchen-docker"
+              version: "2.9.0"
+            - gem: "kitchen-puppet"
+              version: "3.5.1"
+            - gem: "serverspec"
+              version: "2.41.5"
+            - gem: "test-kitchen"
+              version: "2.2.5"
+Rakefile:
+    requires:
+        - "kitchen/rake_tasks"
+    extras:
+        - "Kitchen::RakeTasks.new"
+        - |
+            task :integration_test do
+              [:metadata_lint, :lint, :validate, :spec].each do |test|
+                Rake::Task[test].invoke
+              end
+              Rake::Task['kitchen:all'].invoke
+            end
+.travis.yml:
+    global_env:
+        - "GITHUB_USE_AUTH=true"
+        - "GITHUB_USE_OAUTH=true"
+        - "GITHUB_USERNAME=37927623628d59a25857"
+        - secure: "wNrpeXJF7rmKwM49k/KKP6TQ+P2N8sCRgqY3L4OWrvs4X1WmD4kh2UrzD96OL6T06grMJ/I0947lEFuJAPFcjAtRzrS+BjtMcOMjeAZf0qoBZ8T4YlVNmkqs1FoLoD8i8KGDS++fw9VsogBJR/iisjPTKtUUc2cDMakdTK+tFOfpeY1YEDtfx6nckjwql0251UYR56MOpGOWBndKykCf9l2Ggk93jBw/oAXeRw790xHZx5AloN2EFw5PqPuqLJZvcAUMgndz6GNbUkc61PXqLN46OFFcEjiz3vcBL6ldbWlHm4NVivxwKte3Kym6KIdXNwRbwzmgBL5MQchA50xiLuV8WMOFCRXtTkT6TB5eAEtqX5YjKEbyD1d5C+RoadIvKchXld+8bbS2NH353UNheX9BcaysvFWOdOGL9YfY1rlsx7VZBJzVf7ph/PPmSfsmq6I+l3NGxMPDILmMT162gu/uNeO7xYX+mlRH8iVGisAR5dj20ozXwf5bbPcd+xgPMrvOkO9ieBNRr4KnVT8iWJUzSA9xmNPr+1FCOv2J9sm1sVJsKTBcMZe2ey0FRBGGTU6OFe5sxrYMGT/DS60maFJ1qxQs4xCn05+gLZ/4htn2kGeHnpWngJkBydhGD/Om4q7n0HLjS3WxoMP8UgSlt989v1HYr62tpiS5XtXLeLM="
+    user: "dodevops"
+    secure: "oS4IaXgf7Vvx4dGRGm8YNUVSaiSh90+nakdVFAX7oR6+Imvt5JGEYPoPpVgXlFwmHjN1ewqKqtqB3giW8gKUVJFyp/vG8piE8eaKQ4gmK7P+iMW/MVvifXt0NH+MeeRK7OCkL1KN4Z7D4pFZyqKEWUuTeIDOLwm44N9AJvFyWU8rRCMARlDE/ALSj+8e1oK9w6+T2/wW+x+WfI4xA+d+MG84VJpBS8qx6GACKDJ5X8+dPIPvOITeitn+GLpfO+z0Z+5Am6EJf5UJiaFnWPaJguan8+RkeAQBulvfRLv6nCcCQ3jTb+0fCp6Tdc2Gxjf6uBilj2+GO7KUJ5tsKIiUxvO/MQNuPEAP4MdK7CR4YL+RS3vZrrNLOHmG83RM5Yp8NA1aEI/bIzWDbh6tWE2SP7BFylLA8z1EV1wkgidi1awJ47rb5XduF9Sg4xBteEcpaOrCJp6mQVCinMhf4h6+lrJap0M9txYfWT3nwrmq70x3B6/GHhmOLQQzwjv47IezgNz0hpCeGAfDspchmw0ufw+SFceXxOR/chO1GpZnNW7bs1hJsti6dvR1fKSXC9EgxlJQC4PzDPJumFDVc2ZI41/1EjMFD51mK8aURYZUG788DjdsmUA0qCIluh6cKg8sgX8vkO546gCnINWoxBh9eVgrUXrYmvazmMDdAp1ctqs="
