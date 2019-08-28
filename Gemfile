@@ -28,12 +28,10 @@ group :development do
   gem "puppet-module-posix-dev-r#{minor_version}", '~> 0.3',     require: false, platforms: [:ruby]
   gem "puppet-module-win-default-r#{minor_version}", '~> 0.3',   require: false, platforms: [:mswin, :mingw, :x64_mingw]
   gem "puppet-module-win-dev-r#{minor_version}", '~> 0.3',       require: false, platforms: [:mswin, :mingw, :x64_mingw]
-end
-group :system_tests do
-  gem "kitchen-docker", '2.9.0', require: false
-  gem "kitchen-puppet", '3.5.1', require: false
-  gem "serverspec", '2.41.5',    require: false
-  gem "test-kitchen", '2.2.5',   require: false
+  gem "kitchen-docker", '2.9.0',                                 require: false
+  gem "kitchen-puppet", '3.5.1',                                 require: false
+  gem "serverspec", '2.41.5',                                    require: false
+  gem "test-kitchen", '2.2.5',                                   require: false
 end
 
 puppet_version = ENV['PUPPET_GEM_VERSION']

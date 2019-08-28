@@ -6,7 +6,7 @@
         - ".vscode"
 Gemfile:
     required:
-        ":system_tests":
+        ":development":
             - gem: "kitchen-docker"
               version: "2.9.0"
             - gem: "kitchen-puppet"
@@ -28,6 +28,8 @@ Rakefile:
               Rake::Task['kitchen:all'].invoke
             end
 .travis.yml:
+    env:
+        - "CHECK=integration_test"
     global_env:
         - "GITHUB_USE_AUTH=true"
         - "GITHUB_USE_OAUTH=true"
