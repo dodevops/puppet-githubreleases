@@ -19,7 +19,7 @@ def fetch_from_url(url, username, password, use_auth = false, use_oauth = false,
     )
   end
 
-  request = Net::HTTP::Get.new(uri.path)
+  request = Net::HTTP::Get.new(uri.to_s)
 
   if use_auth && !use_oauth
     Puppet.debug(Kernel.format('Authenticating as %{username}', username: username))
@@ -29,7 +29,7 @@ def fetch_from_url(url, username, password, use_auth = false, use_oauth = false,
     )
   end
 
-  Puppet.debug(Kernel.format('Fetching %{url}. Limit: %{limit}', url: url, limit: limit))
+  Puppet.debug(Kernel.format('Fetching %{url}. Limit: %{limit}', url: uri.to_s, limit: limit))
 
   Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
     response = http.request(request)
