@@ -21,21 +21,9 @@
       ]
     },
     {
-      "operatingsystem": "OracleLinux",
-      "operatingsystemrelease": [
-        "7"
-      ]
-    },
-    {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
         "8"
-      ]
-    },
-    {
-      "operatingsystem": "Scientific",
-      "operatingsystemrelease": [
-        "7"
       ]
     },
     {
@@ -47,6 +35,7 @@
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
+        "16.04",
         "18.04"
       ]
     },
