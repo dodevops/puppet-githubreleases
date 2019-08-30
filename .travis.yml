@@ -46,7 +46,7 @@ matrix:
     -
       env: PUPPET_GEM_VERSION="~> 6.0" CHECK=integration_test
       rvm: 2.5.3
-      script: travis_wait 30 bundle exec rake $CHECK
+      script: travis_wait 40 bundle exec rake $CHECK
       stage: spec
 branches:
   only:
