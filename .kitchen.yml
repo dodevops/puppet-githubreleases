@@ -1,36 +1,39 @@
 ---
 driver:
-  name: docker
-  test_base_path: test
-  use_sudo: false # because of https://github.com/test-kitchen/kitchen-docker/issues/207
+    name: docker
+    test_base_path: test
+    use_sudo: false # because of https://github.com/test-kitchen/kitchen-docker/issues/207
 
 provisioner:
-  name: puppet_apply
-  manifest: site.pp
-  puppet_debug: true
+    name: puppet_apply
+    manifest: site.pp
+    puppet_debug: true
+    ignored_paths_from_root:
+        - "spec"
+        - "vendor"
 
 platforms:
-  - name: ubuntu-16.04
-    provisioner:
-      name: puppet_apply
-      puppet_apt_repo: "http://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb"
-      custom_facts:
-        GITHUB_USE_AUTH: <%= ENV['GITHUB_USE_AUTH'] %>
-        GITHUB_USERNAME: <%= ENV['GITHUB_USERNAME'] %>
-        GITHUB_PASSWORD: <%= ENV['GITHUB_PASSWORD'] %>
-  - name: ubuntu-16.04-puppet4
-    driver_config:
-      image: ubuntu:16.04
-      platform: ubuntu
-    provisioner:
-      name: puppet_apply
-      require_puppet_collections: true
-      puppet_apt_collections_repo: "http://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb"
-      custom_facts:
-        GITHUB_USE_AUTH: <%= ENV['GITHUB_USE_AUTH'] %>
-        GITHUB_USERNAME: <%= ENV['GITHUB_USERNAME'] %>
-        GITHUB_PASSWORD: <%= ENV['GITHUB_PASSWORD'] %>
+    -   name: ubuntu-16.04
+        provisioner:
+            name: puppet_apply
+            puppet_apt_repo: "http://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb"
+            custom_facts:
+                GITHUB_USE_AUTH: <%= ENV['GITHUB_USE_AUTH'] %>
+                GITHUB_USERNAME: <%= ENV['GITHUB_USERNAME'] %>
+                GITHUB_PASSWORD: <%= ENV['GITHUB_PASSWORD'] %>
+    -   name: ubuntu-16.04-puppet4
+        driver_config:
+            image: ubuntu:16.04
+            platform: ubuntu
+        provisioner:
+            name: puppet_apply
+            require_puppet_collections: true
+            puppet_apt_collections_repo: "http://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb"
+            custom_facts:
+                GITHUB_USE_AUTH: <%= ENV['GITHUB_USE_AUTH'] %>
+                GITHUB_USERNAME: <%= ENV['GITHUB_USERNAME'] %>
+                GITHUB_PASSWORD: <%= ENV['GITHUB_PASSWORD'] %>
 
 suites:
-  - name: default
-    run_list:
+    -   name: default
+        run_list:
