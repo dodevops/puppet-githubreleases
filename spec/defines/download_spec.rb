@@ -30,8 +30,6 @@ describe 'githubreleases::download' do
     }
   end
 
-  it { is_expected.to contain_remote_file('fetch./tmp/test') }
-
   context 'with specific release' do
     let(:params) do
       {
@@ -47,10 +45,5 @@ describe 'githubreleases::download' do
       }
     end
 
-    it {
-      is_expected.to contain_remote_file('fetch./tmp/test').with_source(
-        'https://api.github.com/repos/Graylog2/collector-sidecar/tarball/0.0.2',
-      )
-    }
   end
 end

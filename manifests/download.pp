@@ -133,14 +133,9 @@ define githubreleases::download (
       password          => $_password,
     })
 
-  remote_file {
-    "fetch.${_target}":
-      ensure  => 'present',
-      path    => $_target,
-      source  => $source_url,
-      headers => {
-        'User-Agent' => 'dodevops/puppet-githubreleases',
-      },
-  }
+  download_file(
+    $source_url,
+    $_target,
+  )
 
 }
