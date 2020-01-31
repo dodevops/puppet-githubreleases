@@ -7,13 +7,9 @@
 
 * [`githubreleases`](#githubreleases): Downloads release artifacts from Github
 
-**Defined types**
+**Resource types**
 
-* [`githubreleases::download`](#githubreleasesdownload): Downloads release artifacts from Github
-
-**Functions**
-
-* [`github_release`](#github_release): Fetch a download URL based on Github release informations.
+* [`githubreleases_download`](#githubreleases_download): downloads release artifacts from Github
 
 ## Classes
 
@@ -129,173 +125,115 @@ GitHub password to use
 
 Default value: ''
 
-## Defined types
+## Resource types
 
-### githubreleases::download
+### githubreleases_download
 
-Downloads release artifacts from Github
+downloads release artifacts from Github
+
+#### Properties
+
+The following properties are available in the `githubreleases_download` type.
+
+##### `ensure`
+
+Valid values: present, absent
+
+The basic property that the resource should be in.
+
+Default value: present
 
 #### Parameters
 
-The following parameters are available in the `githubreleases::download` defined type.
+The following parameters are available in the `githubreleases_download` type.
+
+##### `target`
+
+Target path to use (defaults to name of the ressource)
 
 ##### `release`
 
-Data type: `String`
+The release or tag to download
 
-see githubreleases::release
-
-Default value: 'latest'
+Default value: latest
 
 ##### `asset_filepattern`
 
-Data type: `String`
+A RegExp filepattern that the requested assed must patch
 
-see githubreleases::asset_filepattern
-
-Default value: '.*'
+Default value: .*
 
 ##### `asset_contenttype`
 
-Data type: `String`
+A RegExp pattern of the requested content type of the asset
 
-see githubreleases::asset_contenttype
-
-Default value: '.*'
+Default value: .*
 
 ##### `asset`
 
-Data type: `Boolean`
+Valid values: `true`, `false`, yes, no
 
-see githubreleases::asset
+Request the download of an asset
 
 Default value: `false`
 
 ##### `asset_fallback`
 
-Data type: `Boolean`
+Valid values: `true`, `false`, yes, no
 
-see githubreleases::asset_fallback
+If asset can\'t be found, download a source tar- or zipball instead
 
 Default value: `false`
 
 ##### `use_zip`
 
-Data type: `Boolean`
+Valid values: `true`, `false`, yes, no
 
-see githubreleases::use_zip
+Use a zipball instead of a tarball when requesting non-asset artifacts
 
 Default value: `false`
 
 ##### `is_tag`
 
-Data type: `Boolean`
+Valid values: `true`, `false`, yes, no
 
-see githubreleases::is_tag
+The given release is a tag
 
 Default value: `false`
 
 ##### `use_auth`
 
-Data type: `Variant[Boolean, String]`
+Valid values: `true`, `false`, yes, no
 
-see githubreleases::use_auth
+Authenticate with the GitHub API to circumvent rate limiting
 
 Default value: `false`
 
 ##### `use_oauth`
 
-Data type: `Variant[Boolean, String]`
+Valid values: `true`, `false`, yes, no
 
-see githubreleases::use_oauth
+Use OAuth authentication instead of basic authentication.
 
 Default value: `false`
 
-##### `target`
-
-Data type: `Optional[String]`
-
-Target path to use (defaults to name of the ressource)
-
-Default value: `undef`
-
 ##### `author`
 
-Data type: `Optional[String]`
-
-see githubreleases::author
-
-Default value: `undef`
+Github author of the requested release
 
 ##### `repository`
 
-Data type: `Optional[String]`
-
-see githubreleases::repository
-
-Default value: `undef`
+Github repository of the requested release
 
 ##### `username`
 
-Data type: `Optional[String]`
-
-see githubreleases::username
+GitHub username to use
 
 Default value: ''
 
 ##### `password`
 
-Data type: `Optional[String]`
-
-see githubreleases::password
+GitHub password to use
 
 Default value: ''
-
-## Functions
-
-### github_release
-
-Type: Ruby 4.x API
-
-Fetch a download URL based on Github release informations.
-
-#### `github_release(String $author, String $repository, Optional[Hash] $options)`
-
-Fetch a download URL based on Github release informations.
-
-Returns: `String` The download URL for the requested assset
-
-##### `author`
-
-Data type: `String`
-
-Github Author
-
-##### `repository`
-
-Data type: `String`
-
-Github repository
-
-##### `options`
-
-Data type: `Optional[Hash]`
-
-Additional options
-
-Options:
-
-* **:release** `String`: Release to use
-* **:asset** `Boolean`: Look for an asset of the release instead of a zip- or tarball
-* **:use_zip** `Boolean`: Use a zip- instead of a tarball
-* **:asset_filepattern** `String`: A regular expression to search in the asset filenames
-* **:asset_contenttype** `String`: A regular expression to match against the content types in the assets
-* **:asset_fallback** `Boolean`: If an asset can not be found, use a zip- or tarball instead.
-If this is false, an error is raised instead.
-* **:is_tag** `String`: The release specified is the name of a tag, not a release
-* **:use_auth** `String`: Use authenticated requests, for example to use a bigger rate limit
-* **:use_oauth** `String`: Use OAuth when using authenticated requests
-(then username/password is used for client id/secret)
-* **:username** `String`: GitHub Username
-* **:password** `String`: GitHub password or Authentication token
 
