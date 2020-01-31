@@ -1,7 +1,7 @@
 classes:
     - githubreleases
 
-githubreleases::download:
+githubreleases_download:
   '/tmp/release.latest.head.fromhiera.tar.gz':
     author: 'Graylog2'
     repository: 'collector-sidecar'

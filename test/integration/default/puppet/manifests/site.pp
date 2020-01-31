@@ -14,7 +14,7 @@ $_use_oauth = $facts['github_use_oauth'] ? {
   default => false,
 }
 
-::githubreleases::download {
+githubreleases_download {
   '/tmp/release.latest.head.tar.gz':
     author     => 'Graylog2',
     repository => 'collector-sidecar',
@@ -24,7 +24,7 @@ $_use_oauth = $facts['github_use_oauth'] ? {
     password   => $facts['github_password'],
 }
 
-::githubreleases::download {
+githubreleases_download {
   '/tmp/release.0.0.2.head.tar.gz':
     author     => 'Graylog2',
     repository => 'collector-sidecar',
@@ -36,7 +36,7 @@ $_use_oauth = $facts['github_use_oauth'] ? {
     password   => $facts['github_password'],
 }
 
-::githubreleases::download {
+githubreleases_download {
   '/tmp/release.0.0.2.head.zip':
     author     => 'Graylog2',
     repository => 'collector-sidecar',
@@ -49,7 +49,7 @@ $_use_oauth = $facts['github_use_oauth'] ? {
     password   => $facts['github_password'],
 }
 
-::githubreleases::download {
+githubreleases_download {
   '/tmp/release.0.0.2.asset.debian':
     author            => 'Graylog2',
     repository        => 'collector-sidecar',
@@ -63,7 +63,7 @@ $_use_oauth = $facts['github_use_oauth'] ? {
     password          => $facts['github_password'],
 }
 
-::githubreleases::download {
+githubreleases_download {
   '/tmp/release.0.0.2.asset.exe':
     author            => 'Graylog2',
     repository        => 'collector-sidecar',

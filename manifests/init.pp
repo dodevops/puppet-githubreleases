@@ -29,10 +29,10 @@ class githubreleases (
 )
   {
 
-    $githubreleases_download = lookup('githubreleases::download', { merge => hash, default_value => undef })
+    $githubreleases_download = lookup('githubreleases_download', { merge => hash, default_value => undef })
 
     if ($githubreleases_download) {
-      create_resources('githubreleases::download', $githubreleases_download)
+      create_resources('githubreleases_download', $githubreleases_download)
     }
 
   }

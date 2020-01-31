@@ -1,13 +1,15 @@
 {
   "name": "dodevops-githubreleases",
-  "version": "3.1.0",
+  "version": "4.0.0",
   "author": "Dennis Ploeger <dennis.ploeger@kps.com>",
   "summary": "Download release tarballs or artifacts from github releases",
   "license": "MIT",
   "source": "https://github.com/dodevops/puppet-githubreleases",
   "project_page": "https://github.com/dodevops/puppet-githubreleases",
   "issues_url": "https://github.com/dodevops/puppet-githubreleases/issues",
-  "dependencies": [],
+  "dependencies": [
+
+  ],
   "operatingsystem_support": [
     {
       "operatingsystem": "CentOS",
