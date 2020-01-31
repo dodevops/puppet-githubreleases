@@ -18,10 +18,10 @@ Assets can be filtered by Content type and/or file name.
 
 ## Usage
 
-To download a release from Github, use the defined type githubreleases::download like this:
+To download a release from Github, use the defined type githubreleases_download like this:
 
 ```puppet
-githubreleases::download {
+githubreleases_download {
   '/tmp/release.latest.head.tar.gz':
     author     => 'company',
     repository => 'example'
@@ -38,7 +38,7 @@ If the repository uses assets to offer binary files with each release,
 these can also be downloaded:
 
 ```puppet
-githubreleases::download {
+githubreleases_download {
   '/tmp/release.0.0.2.asset.debian':
     author            => 'company',
     repository        => 'example',
@@ -53,7 +53,7 @@ This will download a debian package of release 0.0.2 of the repository.
 File names can be filtered as well:
 
 ```puppet
-githubreleases::download {
+githubreleases_download {
   '/tmp/release.0.0.2.asset.exe':
     author            => 'company',
     repository        => 'example',
@@ -71,7 +71,7 @@ This module also supports hiera. Just include the githubreleases-class and
 use the type like this:
 
 ```yaml
-githubreleases::download:
+githubreleases_download:
   '/tmp/release.latest.head.fromhiera.tar.gz':
     author: 'company'
     repository: 'example'
