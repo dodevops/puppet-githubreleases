@@ -11,7 +11,7 @@ Puppet::Type.type('githubreleases_download').provide(:githubreleases_download) d
     # Follow redirects
     response = Net::HTTP.get_response(uri)
 
-    while [301, 302].include?(response.code.to_i))
+    while [301, 302].include?(response.code.to_i)
       uri = URI.parse(response['location'])
       response = Net::HTTP.get_response(uri)
     end
