@@ -13,29 +13,22 @@ provisioner:
         - "vendor"
 
 platforms:
-    -   name: ubuntu-16.04
+    -   name: ubuntu-22.04
         provisioner:
             name: puppet_apply
-            puppet_apt_repo: "http://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb"
-            custom_facts:
-                GITHUB_USE_OAUTH: <%= ENV['GITHUB_USE_OAUTH'] || false %>
-                GITHUB_USE_AUTH: <%= ENV['GITHUB_USE_AUTH'] || false %>
-                GITHUB_USERNAME: <%= ENV['GITHUB_USERNAME'] %>
-                GITHUB_PASSWORD: <%= ENV['GITHUB_PASSWORD'] %>
-    -   name: ubuntu-16.04-puppet4
-        driver_config:
-            image: ubuntu:16.04
-            platform: ubuntu
-        provisioner:
-            name: puppet_apply
-            require_puppet_collections: true
-            puppet_apt_collections_repo: "http://apt.puppetlabs.com/puppetlabs-release-pc1-xenial.deb"
+            puppet_apt_collections_repo: "https://apt.puppetlabs.com/puppet-release-jammy.deb"
             custom_facts:
                 GITHUB_USE_OAUTH: <%= ENV['GITHUB_USE_OAUTH'] || false %>
                 GITHUB_USE_AUTH: <%= ENV['GITHUB_USE_AUTH'] || false %>
                 GITHUB_USERNAME: <%= ENV['GITHUB_USERNAME'] %>
                 GITHUB_PASSWORD: <%= ENV['GITHUB_PASSWORD'] %>
 
+verifier:
+    name: serverspec
+
 suites:
     -   name: default
-        run_list:
+        verifier:
+            custom_install_command: sudo ln -s /usr/bin/bundle3.0 /usr/local/bin/bundle
+            bundler_path: '/usr/local/bin'
+            rspec_path: '/usr/local/bin'
