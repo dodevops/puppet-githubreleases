@@ -1,6 +1,6 @@
 {
   "name": "dodevops-githubreleases",
-  "version": "4.0.0",
+  "version": "4.0.2",
   "author": "Dennis Ploeger <dennis.ploeger@kps.com>",
   "summary": "Download release tarballs or artifacts from github releases",
   "license": "MIT",
