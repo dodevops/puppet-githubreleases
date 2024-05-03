@@ -88,7 +88,7 @@ def get_release_info(author, repository, options)
   Puppet.debug('Parsing release info')
 
   # noinspection RubyResolve
-  PSON.load(release_info_json)
+  JSON.parse(release_info_json)
 end
 
 # Fetch the download URL to the right asset from the release info
