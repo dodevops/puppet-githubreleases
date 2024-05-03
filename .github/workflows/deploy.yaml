@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build and publish module
-        uses: barnumbirr/action-forge-publish@v2.10.0
+        uses: barnumbirr/action-forge-publish@v2.14.0
         env:
             FORGE_API_KEY: ${{ secrets.FORGE_API_KEY }}
             REPOSITORY_URL: https://forgeapi.puppet.com/v3/releases
